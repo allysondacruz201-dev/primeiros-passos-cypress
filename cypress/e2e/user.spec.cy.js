@@ -1,34 +1,37 @@
 import userData from '../fixtures/user-data.json'
+import LoginPage from '../pages/loginPage.js'
+import dashboardPage from '../pages/dashboardPage.js'
+import menuPage from '../pages/menuPage.js'
+
+const loginPage = new LoginPage()
+const dashboard = new dashboardPage()
+const menu = new menuPage()
 
 describe('Orange HRM Tests', () => {
 
 const selectorsList = {
-   usernameField: '[name="username"]',
-   passwordField: '[name="password"]',
-   loginButton: "[type='submit']",
-   sectionTitleTopBar: '.oxd-topbar-header-breadcrumb-module',
-   dashboardGrid: ".orangehrm-dashboard-grid",
-   wrongCredetialAlert: "[role='alert']",
-   myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]',
-   firstNameField: '[name="firstName"]',
+   firstNameField: "[name='firstName']",
    lastNameField: '[name="lastName"]',
    genericField: '.oxd-input--active',
    dateField: "[placeholder='yyyy-dd-mm']",
    dateCloseButton: ".--close",
-   submitButton: "[type='submit']" 
+   submitButton: "[type='submit']",
+   genericCombobox: ".oxd-select-text-input",
+   secondItemCombobox: ":nth-child(27) > span",
+   thirdItemCombobox: ".oxd-select-dropdown > :nth-child(4)",
 }
 
  it.only('User Info Update - Success', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorsList.usernameField).type(userData.userSuccess.username)
-    cy.get(selectorsList.passwordField).type(userData.userSuccess.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
-    cy.get(selectorsList.dashboardGrid)
-    cy.get(selectorsList.myInfoButton).click()
+    loginPage.acessLoginPage()
+    loginPage.loginWithAnyUser(userData.userSuccess.username, userData.userSuccess.password)
+
+    dashboard.checkDashboardPage()
+
+    menu.accessMyInfo()
+
     cy.get(selectorsList.firstNameField).clear().type("Firstname")
     cy.get(selectorsList.lastNameField).clear().type("Lastname")
-    //cy.get(selectorsList.genericField).eq(3).clear().type("TestN1ckname")
+   //cy.get(selectorsList.genericField).eq(3).clear().type("TestN1ckname")
     cy.get(selectorsList.genericField).eq(3).clear().type("mployTest")
     cy.get(selectorsList.genericField).eq(4).clear().type("OtherIdeTest")
     cy.get(selectorsList.genericField).eq(5).clear().type("DriverLicenseTest")
@@ -36,10 +39,17 @@ const selectorsList = {
     cy.get(selectorsList.dateCloseButton).click()
     //cy.get(selectorsList.genericField).eq(7).clear().type("ssnNumberTest")
     //cy.get(selectorsList.genericField).eq(9).clear().type("sinNumberTest")
+    cy.get(selectorsList.genericCombobox).eq(0).click()
+    cy.get(selectorsList.secondItemCombobox).click()
+    cy.get(selectorsList.genericCombobox).eq(1).click()
+    cy.get(selectorsList.thirdItemCombobox).click()
+
+
     cy.get(selectorsList.submitButton).eq(0).click()
     cy.get('body').should('contain', 'Successfully Updated')
     cy.get('.oxd-toast-close')
 })
+
  it('login - Fail', () => {
     cy.visit('/auth/login')
     cy.get(selectorsList.usernameField).type(userData.userFail.username)
