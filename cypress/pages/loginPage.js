@@ -4,9 +4,9 @@ class LoginPage {
         const selectors = {
             usernameField: '[name="username"]',
             passwordField: '[name="password"]',
-            loginButton: "[type='submit']",
-            wrongCredetialAlert: "[role='alert']",
-    }
+            loginButton: '[type="submit"]',
+            wrongCredetialAlert: '[role="alert"]',
+        }
 
 return selectors
 
@@ -21,6 +21,12 @@ return selectors
         cy.get(this.selectorsList().passwordField).type(password)
         cy.get(this.selectorsList().loginButton).click()
     }
+
+    checkAccessInvalid() {
+        cy.get(this.selectorsList().wrongCredetialAlert)
+
+    }
+
 }
 
 
