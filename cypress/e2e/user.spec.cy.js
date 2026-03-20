@@ -6,7 +6,7 @@ import myInfoPage from '../pages/myInfoPage.js'
 
 const Chance = require('chance');
 
-const chance = new Chance();
+const chance = new Chance()
 const loginPage = new LoginPage()
 const dashboard = new dashboardPage()
 const menu = new menuPage()
