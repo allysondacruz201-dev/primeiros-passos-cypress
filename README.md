@@ -1,7 +1,22 @@
-# **My Cypress Automation**
+# Cypress Test Automation - OrangeHRM
 
-This Project utilizes Cypress to automate the testing of a login feature and user update feature.
-Cypress is a JavaScript-based end-to-end testing framework that allows developers to write tests and execute then in real browser
+This project contains end-to-end (E2E) automated tests developed with Cypress, focused on validating critical user flows in a web application.
+
+## 🔍 Automated Test Scenarios
+
+- Login with valid credentials
+- Validation of required fields
+- Interaction with forms
+- Basic user flows
+
+## 🛠️ Technologies
+
+- Cypress
+- JavaScript
+
+## 🎯 Objective
+
+Simulate real QA scenarios, ensuring the quality and proper functionality of the application.
 
 ## Installation
 ```bash
